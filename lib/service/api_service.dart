@@ -3,7 +3,6 @@ import 'package:http/http.dart' as http;
 import '../model/hero_model.dart';
 
 class ApiService {
-  // Para Android emulator use 10.0.2.2
   static const String baseHost = 'http://10.0.2.2:3000';
   final String heroesUrl = '$baseHost/heroes';
 
