@@ -2,7 +2,7 @@ class HeroModel {
   final int id;
   final String name;
   final Map<String, dynamic> powerstats;
-  final String imageUrl; // campo para armazenar a URL da imagem
+  final String imageUrl;
 
   HeroModel({
     required this.id,

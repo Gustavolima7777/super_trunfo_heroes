@@ -1,25 +1,39 @@
 import 'package:flutter/material.dart';
-import 'model/hero_model.dart';
-import 'package:flutter/material.dart';
-import 'model/hero_model.dart';
-import 'service/api_service.dart';
-import 'ui/telas/tela_inicial.dart';
-import 'ui/telas/tela_herois.dart';
+import 'package:super_trunfo_heroes/ui/telas/tela_inicial.dart';
+import 'package:super_trunfo_heroes/ui/telas/tela_herois.dart';
+import 'package:super_trunfo_heroes/ui/telas/tela_minhas_cartas.dart';
+import 'package:super_trunfo_heroes/model/hero_model.dart';
 
-void main() => runApp(const MyApp());
+void main() {
+  runApp(const SuperTrunfoApp());
+}
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class SuperTrunfoApp extends StatelessWidget {
+  const SuperTrunfoApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
       title: 'Super Trunfo Heroes',
-      theme: ThemeData(primarySwatch: Colors.blue),
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        useMaterial3: true,
+      ),
       home: const TelaInicial(),
       routes: {
         '/herois': (context) => const TelaHerois(),
+        // rota opcional pra testes
+        '/minhas_cartas': (context) => TelaMinhasCartas(cartasObtidas: [
+          HeroModel(
+            id: 1,
+            name: 'Iron Man',
+            powerstats: {
+              'intelligence': 100, 'strength': 85, 'speed': 75, 'durability': 85, 'power': 95, 'combat': 85,
+            },
+            imageUrl: 'https://upload.wikimedia.org/wikipedia/en/e/e0/Iron_Man_bleeding_edge.jpg',
+          ),
+        ]),
       },
     );
   }

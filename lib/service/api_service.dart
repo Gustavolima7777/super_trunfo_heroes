@@ -7,13 +7,21 @@ class ApiService {
   final String heroesUrl = '$baseHost/heroes';
 
   Future<List<HeroModel>> fetchHeroes() async {
-    final uri = Uri.parse(heroesUrl);
-    final resp = await http.get(uri);
-    if (resp.statusCode == 200) {
-      final List<dynamic> data = json.decode(resp.body);
-      return data.map((e) => HeroModel.fromJson(e)).toList();
-    } else {
-      throw Exception('Erro ${resp.statusCode} ao buscar heróis');
+    try {
+      final uri = Uri.parse(heroesUrl);
+      final response = await http.get(uri);
+
+      if (response.statusCode == 200) {
+        final List<dynamic> data = json.decode(response.body);
+        if (data.isEmpty) {
+          throw Exception('Nenhum herói encontrado na resposta.');
+        }
+        return data.map((e) => HeroModel.fromJson(e)).toList();
+      } else {
+        throw Exception('Erro ${response.statusCode}: ${response.reasonPhrase}');
+      }
+    } catch (e) {
+      throw Exception('Falha ao carregar heróis: $e');
     }
   }
 }
